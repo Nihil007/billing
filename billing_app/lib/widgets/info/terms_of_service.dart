@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class AboutUsScreen extends StatelessWidget {
-  const AboutUsScreen({super.key});
+class TermsOfService extends StatelessWidget {
+  const TermsOfService({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +33,7 @@ class AboutUsScreen extends StatelessWidget {
                     ),
                     const SizedBox(width: 10),
                     const Text(
-                      "About Us",
+                      "Terms of Service",
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 20,
@@ -66,9 +66,8 @@ class AboutUsScreen extends StatelessWidget {
                 ],
               ),
               child: const Text(
-                "About Us\n\n"
-                "This is billing application."
-                " Developed by HIG Ai Automation",
+                "Terms of Service\n\n"
+                ,
                 style: TextStyle(
                   fontSize: 15,
                   height: 1.5,

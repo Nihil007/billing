@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:billing_app/widgets/app_drawer.dart';
-import 'package:billing_app/screens/general.dart';
+import 'package:billing_app/widgets/home/general.dart';
+import 'package:billing_app/widgets/home/construction.dart';
+import 'package:billing_app/widgets/home/supermarket.dart';
+import 'package:billing_app/widgets/home/traveler.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -168,6 +171,30 @@ class _HomePageState extends State<HomePage> {
                               MaterialPageRoute(
                                 builder: (_) =>
                                     General(categoryTitle: title),
+                              ),
+                            );
+                          } else if (title == 'Construction') {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) =>
+                                    Construction(categoryTitle: title),
+                              ),
+                            );
+                          } else if (title == 'Supermarket') {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) =>
+                                    Supermarket(categoryTitle: title),
+                              ),
+                            );
+                          } else if (title == 'Traveler') {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) =>
+                                    Traveler(categoryTitle: title),
                               ),
                             );
                           } else {

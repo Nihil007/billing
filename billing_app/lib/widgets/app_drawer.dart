@@ -1,3 +1,4 @@
+import 'package:billing_app/widgets/info/terms_of_service.dart';
 import 'package:flutter/material.dart';
 import 'package:billing_app/widgets/info/about_us.dart';
 
@@ -73,7 +74,18 @@ class _AppDrawerState extends State<AppDrawer> {
 
                 if (infoExpanded) ...[
                   _subMenu("Privacy Policy"),
-                  _subMenu("Terms of Service"),
+                  _subMenu(
+                    "Terms of Service",
+                    () {
+                      Navigator.pop(context);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => const TermsOfService(),
+                        ),
+                      );
+                    },
+                  ),
                   _subMenu(
                     "About Us",
                     () {

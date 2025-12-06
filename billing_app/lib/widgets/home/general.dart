@@ -13,7 +13,7 @@ class _GeneralState extends State<General> {
   final TextEditingController _controller = TextEditingController();
   final List<String> items = [];
 
-  // Hard-coded catalog (id, item, price)
+
   final List<Map<String, String>> _catalog = [
     {'id': '01', 'item': 'biscuit', 'price': '10'},
     {'id': '02', 'item': 'chocolate', 'price': '15'},
@@ -57,7 +57,7 @@ class _GeneralState extends State<General> {
           Container(
             width: double.infinity,
             padding:
-                const EdgeInsets.only(top: 50, left: 15, right: 15, bottom: 30),
+                const EdgeInsets.only(top: 40, left: 15, right: 15, bottom: 40),
             decoration: const BoxDecoration(
               color: Color(0xFFD69ADE),
               borderRadius: BorderRadius.only(
@@ -204,88 +204,88 @@ class _GeneralState extends State<General> {
           const SizedBox(height: 20),
 
           // ITEMS LIST
-Expanded(
-  child: items.isEmpty
-      ? const Center(
-          child: Text(
-            "No items added yet",
-            style: TextStyle(fontSize: 16),
-          ),
-        )
-      : ListView.builder(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          itemCount: items.length,
-          itemBuilder: (context, index) {
-            return Container(
-              margin: const EdgeInsets.only(bottom: 12),
-              padding: const EdgeInsets.all(14),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(14),
-                boxShadow: const [
-                  BoxShadow(
-                    color: Colors.black12,
-                    blurRadius: 6,
-                    offset: Offset(0, 2),
-                  ),
-                ],
-              ),
-              child: Row(
-                children: [
-                  Expanded(
+          Expanded(
+            child: items.isEmpty
+                ? const Center(
                     child: Text(
-                      items[index],
-                      style: const TextStyle(fontSize: 16),
+                      "No items added yet",
+                      style: TextStyle(fontSize: 16),
                     ),
-                  ),
-                  IconButton(
-                    icon: const Icon(Icons.delete_outline),
-                    onPressed: () {
-                      setState(() => items.removeAt(index));
+                  )
+                : ListView.builder(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    itemCount: items.length,
+                    itemBuilder: (context, index) {
+                      return Container(
+                        margin: const EdgeInsets.only(bottom: 12),
+                        padding: const EdgeInsets.all(14),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(14),
+                          boxShadow: const [
+                            BoxShadow(
+                              color: Colors.black12,
+                              blurRadius: 6,
+                              offset: Offset(0, 2),
+                            ),
+                          ],
+                        ),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: Text(
+                                items[index],
+                                style: const TextStyle(fontSize: 16),
+                              ),
+                            ),
+                            IconButton(
+                              icon: const Icon(Icons.delete_outline),
+                              onPressed: () {
+                                setState(() => items.removeAt(index));
+                              },
+                            ),
+                          ],
+                        ),
+                      );
                     },
                   ),
-                ],
-              ),
-            );
-          },
-        ),
-),
+          ),
 
 // ---------------- NEXT BUTTON ----------------
-Padding(
-  padding: const EdgeInsets.only(bottom: 25, right: 20),
-  child: Align(
-    alignment: Alignment.bottomRight,
-    child: GestureDetector(
-      onTap: () {
-        // Navigate to next page:
-        // Navigator.push(context, MaterialPageRoute(builder: (_) => NextPage()));
-      },
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 12),
-        decoration: BoxDecoration(
-          color: Color(0xFFD69ADE),
-          borderRadius: BorderRadius.circular(25),
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: const [
-            Text(
-              "Next",
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
+          Padding(
+            padding: const EdgeInsets.only(bottom: 25, right: 20),
+            child: Align(
+              alignment: Alignment.bottomRight,
+              child: GestureDetector(
+                onTap: () {
+                  // Navigate to next page:
+                  // Navigator.push(context, MaterialPageRoute(builder: (_) => NextPage()));
+                },
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 12),
+                  decoration: BoxDecoration(
+                    color: Color(0xFFD69ADE),
+                    borderRadius: BorderRadius.circular(25),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: const [
+                      Text(
+                        "Next",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(width: 6),
+                      Icon(Icons.arrow_forward, color: Colors.black),
+                    ],
+                  ),
+                ),
               ),
             ),
-            SizedBox(width: 6),
-            Icon(Icons.arrow_forward, color: Colors.black),
-          ],
-        ),
-      ),
-    ),
-  ),
-),
+          ),
         ],
       ),
     );
