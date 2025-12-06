@@ -55,10 +55,7 @@ class _AppDrawerState extends State<AppDrawer> {
             child: ListView(
               padding: EdgeInsets.zero,
               children: [
-                _menuTile(Icons.category, "Categories", () {
-                  // handle tap
-                }),
-                _menuTile(Icons.favorite_border, "Favourites", () {}),
+                _menuTile(Icons.category, "Categories", () {}),
                 _menuTile(Icons.post_add, "My Post", () {}),
                 _menuTile(Icons.help_outline, "FAQ", () {}),
 
@@ -75,7 +72,6 @@ class _AppDrawerState extends State<AppDrawer> {
                 ),
 
                 if (infoExpanded) ...[
-                  _subMenu("EULA"),
                   _subMenu("Privacy Policy"),
                   _subMenu("Terms of Service"),
                   _subMenu(

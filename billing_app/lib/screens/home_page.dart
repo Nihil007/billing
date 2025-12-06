@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:billing_app/widgets/app_drawer.dart';
+import 'package:billing_app/screens/general.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
   @override
-  State<HomePage> createState() => _HomePageState(); 
+  State<HomePage> createState() => _HomePageState();
 }
+
 final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
 String _selectedState = 'Tamil Nadu';
@@ -39,7 +41,6 @@ final List<String> _states = [
   'Uttar Pradesh',
   'Uttarakhand',
   'West Bengal',
-  // Union Territories
   'Andaman & Nicobar Islands',
   'Chandigarh',
   'Dadra & Nagar Haveli and Daman & Diu',
@@ -49,7 +50,6 @@ final List<String> _states = [
   'Lakshadweep',
   'Puducherry',
 ];
-
 
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
@@ -64,16 +64,15 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
-    final double iconRadius = width * 0.08; // Responsive radius
-
+    final double iconRadius = width * 0.08;
 
     return Scaffold(
-      key: _scaffoldKey, 
+      key: _scaffoldKey,
       drawer: const AppDrawer(),
       body: SafeArea(
         child: Column(
           children: [
-            // Location + Notification
+            // LOCATION BAR
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
               child: Row(
@@ -91,14 +90,13 @@ class _HomePageState extends State<HomePage> {
                           fontWeight: FontWeight.w600,
                           color: Colors.black,
                         ),
-                        dropdownColor: Colors.white,
                         items: _states.map((state) {
                           return DropdownMenuItem<String>(
                             value: state,
                             child: Text(state),
                           );
                         }).toList(),
-                        onChanged: (String? newVal) {
+                        onChanged: (newVal) {
                           if (newVal == null) return;
                           setState(() {
                             _selectedState = newVal;
@@ -107,12 +105,12 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                   ),
-                  const Icon(Icons.notifications_none)
+                  const Icon(Icons.notifications_none),
                 ],
               ),
             ),
 
-            // Search bar
+            // SEARCH BAR
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 14),
               child: Container(
@@ -139,7 +137,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
 
-            // Banner
+            // BANNER
             Container(
               width: double.infinity,
               height: width * 0.36,
@@ -152,58 +150,78 @@ class _HomePageState extends State<HomePage> {
 
             Container(height: 4, color: Colors.blue.shade900),
 
-            // Categories
+            // CATEGORIES
             Padding(
               padding: const EdgeInsets.only(top: 16),
               child: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   children: categories.map((cat) {
+                    final title = cat['title']!;
                     return Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 12),
-                      child: Column(
-                        children: [
-                          Container(
-                            width: iconRadius * 2,
-                            height: iconRadius * 2,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: Color(0xFFD69ADE), // background color
+                      child: InkWell(
+                        onTap: () {
+                          if (title == 'General') {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) =>
+                                    General(categoryTitle: title),
+                              ),
+                            );
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text("$title page coming soon")),
+                            );
+                          }
+                        },
+                        borderRadius: BorderRadius.circular(12),
+                        child: Column(
+                          children: [
+                            Container(
+                              width: iconRadius * 2,
+                              height: iconRadius * 2,
+                              decoration: const BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Color(0xFFD69ADE),
+                              ),
+                              padding: EdgeInsets.all(iconRadius * 0.28),
+                              child: Image.asset(
+                                cat['asset']!,
+                                fit: BoxFit.contain,
+                              ),
                             ),
-                            padding: EdgeInsets.all(iconRadius * 0.28), // adjust as needed
-                            child: Image.asset(
-                              cat['asset']!,
-                              fit: BoxFit.contain,
-                            ),
-                          ),
-                          const SizedBox(height: 8),
-                          Text(
-                            cat['title']!,
-                            style: const TextStyle(fontWeight: FontWeight.bold),
-                          )
-                        ],
+                            const SizedBox(height: 8),
+                            Text(
+                              title,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            )
+                          ],
+                        ),
                       ),
                     );
                   }).toList(),
                 ),
               ),
             ),
-
-            const Expanded(child: SizedBox()), // Remaining white space
+            const Expanded(child: SizedBox()),
           ],
         ),
       ),
 
-      // Bottom Nav
+      // BOTTOM NAV
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
-          onTap: (i) {
-              if (i == 4) {
-                _scaffoldKey.currentState?.openDrawer();  // 👈 opens sidebar
-              } else {
-                setState(() => _selectedIndex = i);
-              }
-            },
+        onTap: (i) {
+          if (i == 4) {
+            _scaffoldKey.currentState?.openDrawer();
+          } else {
+            setState(() => _selectedIndex = i);
+          }
+        },
         type: BottomNavigationBarType.fixed,
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
