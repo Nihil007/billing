@@ -16,7 +16,7 @@ class Construction extends StatelessWidget {
           Container(
             width: double.infinity,
             padding:
-                const EdgeInsets.only(top: 40, left: 15, right: 15, bottom: 40),
+                const EdgeInsets.only(top: 30, left: 15, right: 15, bottom: 30),
             decoration: const BoxDecoration(
               color: Color(0xFFD69ADE),
               borderRadius: BorderRadius.only(
