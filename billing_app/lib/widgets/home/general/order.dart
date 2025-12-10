@@ -1,4 +1,6 @@
+// lib/order_quantity_page.dart
 import 'package:flutter/material.dart';
+import 'billing_page.dart'; // add this import
 
 class OrderQuantityPage extends StatefulWidget {
   final List<Map<String, String>> items;
@@ -208,15 +210,14 @@ class _OrderQuantityPageState extends State<OrderQuantityPage> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    // confirm action
-                    showDialog(
-                      context: context,
-                      builder: (_) => AlertDialog(
-                        title: const Text('Confirmed'),
-                        content: Text('Total payable: ₹$total'),
-                        actions: [
-                          TextButton(onPressed: () => Navigator.pop(context), child: const Text('OK')),
-                        ],
+                    // navigate to BillingPage (no popup)
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => BillingPage(
+                          items: orderItems,
+                          subtotal: total,
+                        ),
                       ),
                     );
                   },

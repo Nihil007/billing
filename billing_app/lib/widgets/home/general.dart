@@ -43,7 +43,7 @@ class _GeneralState extends State<General> {
     super.dispose();
   }
 
-  // Adds item; if item already selected, just increase quantity later on next page
+  // Adds item; prevents duplicates (shows SnackBar if already selected)
   void _addItem() {
     final text = _controller.text.trim();
     if (text.isEmpty) return;
@@ -53,6 +53,18 @@ class _GeneralState extends State<General> {
       (c) => c['item'] == text,
       orElse: () => {'item': text, 'price': '0'},
     );
+
+    // Check for duplicate by item name (case-sensitive match of catalog names).
+    final exists = selectedItems.any((s) => s['item'] == entry['item']);
+
+    if (exists) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Item already added')),
+      );
+      _controller.clear();
+      return;
+    }
+
     setState(() {
       selectedItems.add({'item': entry['item']!, 'price': entry['price']!});
       _controller.clear();
